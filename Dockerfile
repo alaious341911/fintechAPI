@@ -14,9 +14,9 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
-    libpq-dev \  # PostgreSQL library
-    && docker-php-ext-install pdo_pgsql \  # Install only PostgreSQL driver 
-    && apt-get clean && rm -rf /var/lib/apt/lists/*  # Clean up
+    libpq-dev \ 
+    && docker-php-ext-install pdo_pgsql \ 
+    && apt-get clean && rm -rf /var/lib/apt/lists/* # Clean up
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -32,8 +32,8 @@ RUN cp .env.example .env
 RUN php artisan key:generate
 
 # Set up Apache
-RUN chown -R www-data:www-data /var/www/html \
-    && a2enmod rewrite
+RUN chown -R www-data:www-data /var/www/html && \
+    a2enmod rewrite
 
 # Expose port 80 to the Render platform
 EXPOSE 80

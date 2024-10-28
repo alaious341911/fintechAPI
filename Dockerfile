@@ -37,4 +37,7 @@ RUN chown -R www-data:www-data /var/www/html \
 EXPOSE 80
 
 # Start the Laravel server
-CMD ["apache2-foreground"]
+
+# Run migrations and then start the server
+CMD php artisan migrate --force && apache2-foreground
+

@@ -17,7 +17,7 @@ return [
 
     'paths' => ['api/*', 'sanctum/csrf-cookie'],  // Specify your API routes
     'allowed_methods' => ['*'],
-    'allowed_origins' => ['https://fintech-api-ui.vercel.app/fintech-ui'],  // Specify the front-end origin
+    'allowed_origins' => ['https://fintech-api-ui.vercel.app'],  // Specify the front-end origin
     'allowed_origins_patterns' => [],
     'allowed_headers' => ['*'],
     'exposed_headers' => [],

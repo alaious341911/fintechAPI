@@ -14,7 +14,9 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
-    && docker-php-ext-install pdo_mysql
+    libpq-dev \  # PostgreSQL library
+    && docker-php-ext-install pdo_pgsql \  # Install only PostgreSQL driver 
+    && apt-get clean && rm -rf /var/lib/apt/lists/*  # Clean up
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -36,8 +38,5 @@ RUN chown -R www-data:www-data /var/www/html \
 # Expose port 80 to the Render platform
 EXPOSE 80
 
-# Start the Laravel server
-
 # Run migrations and then start the server
-CMD php artisan migrate --force && apache2-foreground
-
+CMD php artisan config:cache && php artisan migrate --force && apache2-foreground
